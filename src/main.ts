@@ -3,6 +3,7 @@ import { AppModule } from './app.module';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { ConfigService } from '@nestjs/config';
 import { Logger, ValidationPipe, VersioningType } from '@nestjs/common';
+import { swaggerSetup } from './swagger-setup';
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {
     bufferLogs: true,
@@ -22,6 +23,7 @@ async function bootstrap() {
       errorHttpStatusCode: 422,
     }),
   );
+  swaggerSetup(app);
   app.enableCors({
     credentials: true,
     origin: (origin, callback) => {
